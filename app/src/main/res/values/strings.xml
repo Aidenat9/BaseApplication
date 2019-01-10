@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FastProject</string>
+    <string name="touch_light_open">轻触照亮</string>
+    <string name="touch_light_close">轻触关闭</string>
+    <string name="scan_code">扫码</string>
+    <string name="tips_scan_code">将二维码/条码放入框内，即可自动扫码</string>
+
+</resources>

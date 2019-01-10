@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BaseLibrary</string>
+    <string name="please_open_notifiction">请打开通知提醒</string>
+    <string name="title_notifiction">提示</string>
+    <string name="confirm">好的</string>
+    <string name="ok">好的</string>
+    <string name="cancel">取消</string>
+    <string name="title_tip">提示：</string>
+    <string name="please_open_these_permissions">请去设置打开以下权限 [ %s ] ，否则无法正常使用功能！</string>
+    <string name="you_haved_denied_permission_recently">您曾拒绝过申请 [ %s ] 权限，请您同意授权，否则无法正常使用功能！</string>
+</resources>
