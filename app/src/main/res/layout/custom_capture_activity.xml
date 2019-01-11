@@ -16,6 +16,8 @@
         app:labelText="@string/tips_scan_code"
         app:labelTextSize="14sp"
         app:laserColor="#2FB828"
+        app:frameHeight="250dp"
+        app:frameWidth="250dp"
         app:frameColor="#cdcdcd"
         app:cornerColor="#2FB828"
         app:resultPointColor="@color/colorAccent"
@@ -29,7 +31,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="190dp"
         android:onClick="OnClick"
         android:clickable="true"/>
     <include layout="@layout/toolbar_capture"/>

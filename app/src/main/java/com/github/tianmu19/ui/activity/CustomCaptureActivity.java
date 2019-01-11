@@ -17,7 +17,6 @@ package com.github.tianmu19.ui.activity;
 
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,9 +36,14 @@ public class CustomCaptureActivity extends CaptureActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
         TextView tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText("扫码");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         getBeepManager().setPlayBeep(true);
         getBeepManager().setVibrate(true);

@@ -35,7 +35,5 @@ dependencies {
     //适配8.0toast
     implementation 'com.hjq:toast:5.0'
     implementation project(':baselibrary')
-    //Zxing核心包
-    implementation 'com.google.zxing:core:3.3.3'
     implementation project(':qrbarcodelibrary')
 }

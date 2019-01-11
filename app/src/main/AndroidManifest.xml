@@ -45,6 +45,7 @@
         <!--扫码-->
         <activity
             android:name=".ui.activity.CustomCaptureActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
 

@@ -127,11 +127,17 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         setContentView(getLayoutId());
 
         hasSurface = false;
-        inactivityTimer = new InactivityTimer(this);
-        beepManager = new BeepManager(this);
-        ambientLightManager = new AmbientLightManager(this);
+
 
 //        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(null==inactivityTimer)inactivityTimer = new InactivityTimer(this);
+        if(null==beepManager)beepManager = new BeepManager(this);
+        if(null==ambientLightManager)ambientLightManager = new AmbientLightManager(this);
     }
 
     public int getLayoutId(){

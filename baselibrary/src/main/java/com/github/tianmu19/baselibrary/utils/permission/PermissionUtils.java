@@ -2,6 +2,7 @@ package com.github.tianmu19.baselibrary.utils.permission;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -53,7 +54,7 @@ public class PermissionUtils {
      * 相机 存储
      */
     public void checkCameraPermission(Context context, @NonNull final IPermissionCallback callback) {
-        checkXPermission(context, callback, Permission.Group.CAMERA, Permission.Group.STORAGE);
+        checkXPermission(context, callback, Permission.Group.CAMERA);
     }
 
     /**
@@ -123,79 +124,85 @@ public class PermissionUtils {
      */
     private void checkXPermission(final Context context, final IPermissionCallback callback, String... groups) {
         if (null == context) return;
-        AndPermission.with(context).runtime()
-                .permission(groups)
-                .rationale(new Rationale<List<String>>() {
-                    @Override
-                    public void showRationale(Context context, List<String> data, final RequestExecutor executor) {
+        int versionCodes = Build.VERSION.SDK_INT;//取得SDK版本
+        if (versionCodes >= 23) {
+            AndPermission.with(context).runtime()
+                    .permission(groups)
+                    .rationale(new Rationale<List<String>>() {
+                        @Override
+                        public void showRationale(Context context, List<String> data, final RequestExecutor executor) {
+                            //tip
+                            List<String> permissionNames = Permission.transformText(context, data);
+                            String permissionText = TextUtils.join(",", permissionNames);
+                            String please_open_permission = context.getResources().getString(R.string.you_haved_denied_permission_recently);
+                            String targetTips = String.format(please_open_permission, permissionText);
+                            SpannableString spannableString = formatTips(context, targetTips);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle(context.getResources().getString(R.string.title_tip)).setMessage(spannableString)
+                                    .setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            executor.execute();
+                                        }
+                                    })
+                                    .setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            executor.cancel();
+                                        }
+                                    }).setCancelable(false).show();
+                        }
+                    })
+                    .onGranted(new Action<List<String>>() {
+                        @Override
+                        public void onAction(List<String> data) {
+                            if (null != callback) {
+                                callback.onGranted();
+                            }
+                        }
+                    }).onDenied(new Action<List<String>>() {
+                @Override
+                public void onAction(List<String> deniedPermissions) {
+                    if (AndPermission.hasAlwaysDeniedPermission(context, deniedPermissions)) {
                         //tip
-                        List<String> permissionNames = Permission.transformText(context, data);
+                        List<String> permissionNames = Permission.transformText(context, deniedPermissions);
                         String permissionText = TextUtils.join(",", permissionNames);
-                        String please_open_permission = context.getResources().getString(R.string.you_haved_denied_permission_recently);
+                        String please_open_permission = context.getResources().getString(R.string.please_open_these_permissions);
                         String targetTips = String.format(please_open_permission, permissionText);
                         SpannableString spannableString = formatTips(context, targetTips);
+                        // 这些权限被用户总是拒绝。
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle(context.getResources().getString(R.string.title_tip)).setMessage(spannableString)
                                 .setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        executor.execute();
+                                        AndPermission.with(context).runtime().setting()
+                                                .onComeback(new Setting.Action() {
+                                                    @Override
+                                                    public void onAction() {
+
+                                                    }
+                                                }).start();
+                                        dialog.dismiss();
                                     }
                                 })
                                 .setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        executor.cancel();
+                                        dialog.dismiss();
                                     }
                                 }).setCancelable(false).show();
                     }
-                })
-                .onGranted(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        if (null != callback) {
-                            callback.onGranted();
-                        }
+                    if (null != callback) {
+                        callback.onDenied();
                     }
-                }).onDenied(new Action<List<String>>() {
-            @Override
-            public void onAction(List<String> deniedPermissions) {
-                if (AndPermission.hasAlwaysDeniedPermission(context, deniedPermissions)) {
-                    //tip
-                    List<String> permissionNames = Permission.transformText(context, deniedPermissions);
-                    String permissionText = TextUtils.join(",", permissionNames);
-                    String please_open_permission = context.getResources().getString(R.string.please_open_these_permissions);
-                    String targetTips = String.format(please_open_permission, permissionText);
-                    SpannableString spannableString = formatTips(context, targetTips);
-                    // 这些权限被用户总是拒绝。
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle(context.getResources().getString(R.string.title_tip)).setMessage(spannableString)
-                            .setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    AndPermission.with(context).runtime().setting()
-                                            .onComeback(new Setting.Action() {
-                                                @Override
-                                                public void onAction() {
-
-                                                }
-                                            }).start();
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).setCancelable(false).show();
                 }
-                if (null != callback) {
-                    callback.onDenied();
-                }
+            }).start();
+        }else{
+            if (null != callback) {
+                callback.onGranted();
             }
-        }).start();
-
+        }
     }
 
     private SpannableString formatTips(Context context, String targetTips) {
