@@ -47,7 +47,16 @@
             android:name=".ui.activity.CustomCaptureActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
-
+        <!--其次解决三方在Manifest文件的配置问题-->
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="${rong_cloud_app_key}"
+            />
+        <meta-data
+            android:name="RONG_CLOUD_APP_SECRET"
+            android:value="${rong_cloud_app_secret}"
+            />
+        <!--&#45;&#45;&#45;&#45;-->
 
     </application>
 

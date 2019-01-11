@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
-
+def cfg = rootProject.ext.android
+def dpc = rootProject.ext.dependencies
 android {
-    compileSdkVersion cfgs.compileSdkVersion
+    compileSdkVersion cfg.compileSdkVersion
     defaultConfig {
-        minSdkVersion cfgs.minSdkVersion
-        targetSdkVersion cfgs.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
     }
 
     buildTypes {
@@ -21,8 +21,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "com.android.support:appcompat-v7:${cfgs.androidSupportVersion}"
-    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+    implementation dpc["constraint"]
+    implementation dpc["appcompat-v7"]
+    implementation dpc["andPermission"]
 
 }

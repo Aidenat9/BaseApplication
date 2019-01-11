@@ -2,6 +2,7 @@ package com.github.tianmu19;
 
 import android.app.Application;
 
+import com.github.tianmu19.baselibrary.utils.klogutil.KLog;
 import com.hjq.toast.ToastUtils;
 
 
@@ -21,6 +22,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mInstance = this;
         ToastUtils.init(this);
+        KLog.init(BuildConfig.LOG_DEBUG);
 
     }
     public static MyApplication getInstance() {
