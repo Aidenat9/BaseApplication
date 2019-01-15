@@ -27,5 +27,10 @@ ext {
             "andPermission"            : "com.yanzhenjie:permission:2.0.0-rc12",//permission
             "zxing"                    : "com.google.zxing:core:3.3.3",//zxing
             "toast8.0"                 : "com.hjq:toast:5.0",//>8.0toast
+            "fastjson":"com.alibaba:fastjson:1.1.46.android",
+            "multidex":"com.android.support:multidex:1.0.1",
+            "eventbus":"org.greenrobot:eventbus:3.0.0",
+            "smartRefreshLayout":"com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7",
+            "smartRefreshHeader":"com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7",
     ]
 }
