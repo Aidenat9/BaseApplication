@@ -23,6 +23,7 @@ ext {
             "converter-gson"           : "com.squareup.retrofit2:converter-gson:2.0.0-beta4",
             "adapter-rxjava"           : "com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4",
             "butterknife"              : "com.jakewharton:butterknife:8.8.1",
+            "butterknife-compiler":"com.jakewharton:butterknife-compiler:8.8.1",
             "logging-interceptor"      : "com.squareup.okhttp3:logging-interceptor:3.0.1",
             "andPermission"            : "com.yanzhenjie:permission:2.0.0-rc12",//permission
             "zxing"                    : "com.google.zxing:core:3.3.3",//zxing
