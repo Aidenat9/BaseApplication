@@ -58,7 +58,6 @@ dependencies {
     implementation dpc["constraint"]
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation dpc["appcompat-v7"]
-    implementation dpc["design"]
     implementation dpc["cardView"]
     implementation dpc["recyclerView"]
     implementation dpc["gson"]

@@ -26,4 +26,5 @@ dependencies {
     implementation dpc["andPermission"]
     implementation dpc["glide"]
     annotationProcessor dpc["glide_annotationProcessor"]
+    implementation dpc["design"]
 }

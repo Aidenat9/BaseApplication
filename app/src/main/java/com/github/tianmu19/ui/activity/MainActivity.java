@@ -8,7 +8,6 @@ import android.view.View;
 import com.github.tianmu19.Constants;
 import com.github.tianmu19.R;
 import com.github.tianmu19.baselibrary.interf.IPermissionCallback;
-import com.github.tianmu19.baselibrary.utils.imageloader.TImage;
 import com.github.tianmu19.baselibrary.utils.klogutil.KLog;
 import com.github.tianmu19.baselibrary.utils.permission.PermissionUtils;
 import com.github.tianmu19.utils.ToastUtil;
