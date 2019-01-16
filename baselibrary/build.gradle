@@ -24,5 +24,6 @@ dependencies {
     implementation dpc["constraint"]
     implementation dpc["appcompat-v7"]
     implementation dpc["andPermission"]
-
+    implementation dpc["glide"]
+    annotationProcessor dpc["glide_annotationProcessor"]
 }
