@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
+import com.facebook.rebound.SpringSystem;
 import com.github.tianmu19.Constants;
 import com.github.tianmu19.R;
 import com.github.tianmu19.baselibrary.interf.IPermissionCallback;
@@ -25,6 +30,33 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
         KLog.e("oncreate");
         btn_scan = findViewById(R.id.btn_scan);
+        final ImageView imageView = findViewById(R.id.imageview);
+        // 首先创建一个SpringSystem对象
+        SpringSystem springSystem = SpringSystem.create();
+        // 添加一个弹簧到系统
+        Spring spring = springSystem.createSpring();
+        //设置弹簧属性参数，如果不设置将使用默认值
+        //两个参数分别是弹力系数和阻力系数
+        spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(100, 2));
+        // 添加弹簧监听器
+        spring.addListener(new SimpleSpringListener() {
+
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                // value是一个符合弹力变化的一个数，我们根据value可以做出弹簧动画
+                float value = (float) spring.getCurrentValue();
+                //基于Y轴的弹簧阻尼动画
+                imageView.setTranslationY(value);
+
+                // 对图片的伸缩动画
+                float scale = 1f - (value * 0.5f);
+                imageView.setScaleX(scale);
+                imageView.setScaleY(scale);
+            }
+        });
+
+        // 设置动画结束值
+        spring.setEndValue(1f);
     }
 
     @Override

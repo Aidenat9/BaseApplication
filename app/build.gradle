@@ -31,7 +31,7 @@ android {
             //log配置
             buildConfigField "boolean" ,"LOG_DEBUG" ,"true"
             //配置网址
-            buildConfigField "String","SERVER_URL","http://xxx8080.com/"
+            buildConfigField ('String','SERVER_URL','"http://xx8080.com"')
             signingConfig signingConfigs.debug
             //其次解决三方在Manifest文件的配置问题(这里的“你替代的内容”，不能为特殊关键词，比如：TRUE，否则在Java代码中获取不到meta-data中的值)
             manifestPlaceholders = [
@@ -42,7 +42,7 @@ android {
         release {
             minifyEnabled true
             buildConfigField "boolean" ,"LOG_DEBUG" ,"false"
-            buildConfigField "String","SERVER_URL","http://xxx.com/"
+            buildConfigField ('String','SERVER_URL','"http://official.com"')
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
@@ -68,4 +68,6 @@ dependencies {
     implementation dpc["toast8.0"]
     implementation project(':baselibrary')
     implementation project(':qrbarcodelibrary')
+    implementation 'com.facebook.rebound:rebound:0.3.8'
+    implementation 'com.tumblr:backboard:0.1.0'
 }
