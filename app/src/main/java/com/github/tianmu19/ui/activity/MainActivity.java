@@ -15,6 +15,7 @@ import com.github.tianmu19.R;
 import com.github.tianmu19.baselibrary.interf.IPermissionCallback;
 import com.github.tianmu19.baselibrary.utils.klogutil.KLog;
 import com.github.tianmu19.baselibrary.utils.permission.PermissionUtils;
+import com.github.tianmu19.utils.SPUtils;
 import com.github.tianmu19.utils.ToastUtil;
 import com.king.zxing.Intents;
 
@@ -62,15 +63,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SPUtils.putLong("time", System.currentTimeMillis());
                 PermissionUtils.getInstance().checkCameraPermission(mContext, new IPermissionCallback() {
                     @Override
                     public void onGranted() {
+                        startScan();
                         KLog.e("onGranted");
                         ToastUtil.show(">>>>>> onGranted");
-                        startScan();
                     }
 
 
@@ -79,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
                         KLog.e("onDenied");
                     }
                 });
+
             }
         });
+
     }
 
     /**

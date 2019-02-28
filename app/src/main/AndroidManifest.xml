@@ -45,7 +45,8 @@
         <!--扫码-->
         <activity
             android:name=".ui.activity.CustomCaptureActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <!--其次解决三方在Manifest文件的配置问题-->
         <meta-data

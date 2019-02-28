@@ -7,6 +7,7 @@ ext {
             targetSdkVersion : 26,
             versionCode      : 1,
             versionName      : "1.0.0",
+
     ]
     dependencies = [
             "constraint"               : "com.android.support.constraint:constraint-layout:1.1.3",
@@ -25,7 +26,7 @@ ext {
             "butterknife"              : "com.jakewharton:butterknife:8.8.1",
             "butterknife-compiler":"com.jakewharton:butterknife-compiler:8.8.1",
             "logging-interceptor"      : "com.squareup.okhttp3:logging-interceptor:3.0.1",
-            "andPermission"            : "com.yanzhenjie:permission:2.0.0-rc12",//permission
+            "andPermission"            : "com.yanzhenjie.permission:support:2.0.0",//permission
             "zxing"                    : "com.google.zxing:core:3.3.3",//zxing
             "toast8.0"                 : "com.hjq:toast:5.0",//>8.0toast
             "fastjson":"com.alibaba:fastjson:1.1.46.android",

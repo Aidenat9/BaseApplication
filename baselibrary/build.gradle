@@ -28,3 +28,14 @@ dependencies {
     annotationProcessor dpc["glide_annotationProcessor"]
     implementation dpc["design"]
 }
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                //这里写你想统一的版本是多少，前提是你sdk里有
+                details.useVersion '27.1.1'
+            }
+        }
+    }
+}

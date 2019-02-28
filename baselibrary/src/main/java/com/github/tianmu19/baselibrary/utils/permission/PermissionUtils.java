@@ -15,10 +15,9 @@ import com.github.tianmu19.baselibrary.R;
 import com.github.tianmu19.baselibrary.interf.IPermissionCallback;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
-import com.yanzhenjie.permission.Setting;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,10 +50,10 @@ public class PermissionUtils {
     }
 
     /**
-     * 相机 存储
+     * 相机
      */
     public void checkCameraPermission(Context context, @NonNull final IPermissionCallback callback) {
-        checkXPermission(context, callback, Permission.Group.CAMERA);
+        checkXPermission(context, callback, Permission.CAMERA);
     }
 
     /**
@@ -176,13 +175,8 @@ public class PermissionUtils {
                                 .setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        AndPermission.with(context).runtime().setting()
-                                                .onComeback(new Setting.Action() {
-                                                    @Override
-                                                    public void onAction() {
-
-                                                    }
-                                                }).start();
+                                        PermissionPageUtils pageUtils = new PermissionPageUtils(context);
+                                        pageUtils.jumpPermissionPage();
                                         dialog.dismiss();
                                     }
                                 })

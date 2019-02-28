@@ -16,17 +16,18 @@
 package com.github.tianmu19.ui.activity;
 
 import android.hardware.Camera;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.tianmu19.R;
+import com.github.tianmu19.baselibrary.utils.klogutil.KLog;
+import com.github.tianmu19.utils.SPUtils;
 import com.king.zxing.CaptureActivity;
 
 /**
  * @author Jenly <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
-public class CustomCaptureActivity extends CaptureActivity {
+public class CustomCaptureActivity extends CaptureActivity implements View.OnClickListener {
 
     @Override
     public int getLayoutId() {
@@ -34,19 +35,16 @@ public class CustomCaptureActivity extends CaptureActivity {
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
+    public void processVisiableThings() {
+        super.processVisiableThings();
         TextView tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText("扫码");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+        findViewById(R.id.ivFlash).setVisibility(View.VISIBLE);
         getBeepManager().setPlayBeep(true);
         getBeepManager().setVibrate(true);
+        KLog.e("_用时："+ (double)(System.currentTimeMillis()- SPUtils.getLong("time",0L))/1000D+"  s");
+        findViewById(R.id.ivLeft).setOnClickListener(this);
+        findViewById(R.id.ivFlash).setOnClickListener(this);
     }
 
     private void offFlash(){
@@ -72,10 +70,10 @@ public class CustomCaptureActivity extends CaptureActivity {
             openFlash();
             v.setSelected(true);
         }
-
     }
 
-    public void OnClick(View v){
+    @Override
+    public void onClick(View v) {
         switch (v.getId()){
             case R.id.ivLeft:
                 onBackPressed();
