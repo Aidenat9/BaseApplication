@@ -2,6 +2,8 @@ package com.github.tianmu19.baselibrary.utils.imageloader;
 
 import android.widget.ImageView;
 
+import com.github.tianmu19.baselibrary.utils.permission.Top;
+
 /**
  * @author sunwei
  *         邮箱：tianmu19@gmail.com
